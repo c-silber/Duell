@@ -1,0 +1,127 @@
+#include "BoardView.h"
+#include "Die.h"
+#include <string>
+#include <iomanip>
+#include <iostream>
+using namespace std;
+
+BoardView::BoardView()
+{
+
+}
+
+// Function that sets the value of each position on the Duell board
+void BoardView::setValue(int i, int j, string bVal) {
+	boardArray[i][j] = bVal;
+}
+
+void BoardView::getKey(string opponent, int &row, int &column) {
+	for (int i = 1; i < 9; i++) {
+		for (int j = 1; j < 10; j++) {
+			string val = getValue(i, j);
+			if (val == opponent) {
+				row = i;
+				column = j;
+			}
+		}
+	}
+}
+
+
+// Function that returns a specific position
+string BoardView::getValue(int i, int j) {
+	return boardArray[i][j];
+}
+
+// Function that prints the current Duell board
+void BoardView::printBoard() {
+	for (int i = 0; i < 9; i++) {
+		for (int j = 0; j < 10; j++) {
+			cout << left << setw(5) << boardArray[i][j] << " ";
+		}
+		cout << endl;
+	}
+}
+
+string BoardView::validateSource(int row, int column) {
+	if (row > MAX_ROW || row < MIN_ROW || column > MAX_COLUMN || column < MIN_COLUMN) {
+		return "INVALID ROW OR COLUMN. TRY AGAIN";
+	}
+	string sourceDie = getValue(row, column);
+	sourceDie = sourceDie.at(0);
+	if (sourceDie != "H") {
+		return "YOU HAVE NOT SELECTED A VALID DIE. TRY AGAIN";
+	}
+	return "SUCCESS";
+}
+
+
+string BoardView::validateDiceRoll(string sourceDie, int sourceRow, int sourceColumn, int destRow, int destColumn) {
+	if (destRow > MAX_ROW || destRow < MIN_ROW || destColumn > MAX_COLUMN || destColumn < MIN_COLUMN) {
+		return "INVALID ROW OR COLUMN. TRY AGAIN";
+	}
+
+	// Make sure that the die is not being moved to an occupied spot
+	string destDie = getValue(destRow, destColumn);
+	if (destDie.at(0) == sourceDie.at(0)) {
+		return "YOU CANNOT MOVE YOUR DIE TO AN OCCUPIED SPACE. TRY AGAIN";
+	}
+
+	int sourceNum = int(sourceDie.at(1) - '0');
+	int distRow, distColumn;
+
+	if (destColumn > sourceColumn) {
+		distColumn = destColumn - sourceColumn;
+	}
+	else {
+		distColumn = sourceColumn - destColumn;
+	}
+
+	if (destRow > sourceRow) {
+		distRow = destRow - sourceRow;
+	}
+	else {
+		distRow = sourceRow - destRow;
+	}
+
+	int dist = distRow + distColumn;
+
+	if (dist != sourceNum) {
+		return "INCORRECT NUMBER OF SPACES MOVED. TRY AGAIN.";
+	}
+	else {
+		if (sourceColumn != destColumn && sourceRow != destRow) {
+			char direction;
+			cout << "WHICH DIRECTION DO YOU WANT TO MOVE FIRST (F/L): ";
+			cin >> direction;
+		}
+		// check if there are dice on the path
+		cout << "DEST ROW: " << destRow << endl;
+		cout << "DEST COLUMN: " << destColumn << endl;
+		cout << "SOURCE ROW: " << sourceRow << endl;
+		cout << "SOURCE COLUMN: " << sourceColumn << endl;
+
+		string pathVal;
+		while ((sourceRow - 1) > destRow) {
+			pathVal = getValue((sourceRow - 1), sourceColumn);
+			if (pathVal != "0" && pathVal.at(1) != sourceDie.at(1)) {
+				return "CANNOT MOVE DIE OVER OTHERS"; 
+			}
+			sourceRow --;
+		}
+		while (sourceColumn > destColumn) {
+			pathVal = getValue(destRow, destColumn);
+			cout << "VALUE AT " << destRow << "," << destColumn << " is " << pathVal << endl;
+			if (pathVal != "0" && pathVal.at(1) != sourceDie.at(1)) {
+				return "CANNOT MOVE DIE OVER OTHERS";
+			}
+			destRow --;
+		}
+	}
+
+	return "SUCCESS";
+}
+
+BoardView::~BoardView()
+{
+}

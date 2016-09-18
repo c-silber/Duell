@@ -1,0 +1,90 @@
+#include "Computer.h"
+#include <string>
+#include <iostream>
+using namespace std;
+
+Computer::Computer()
+{
+}
+
+int Computer::playerStrategy(BoardView &bv) {
+	int top;
+
+	int opRow, opColumn;
+	bv.getKey("H11", opRow, opColumn);
+	int myRow, myColumn;
+	bv.getKey("C11", myRow, myColumn);
+
+	for (int i = 1; i < 9; i++) {
+		for (int j = 1; j < 10; j++) {
+			string val = bv.getValue(i, j);
+			if (val == "0") {
+				continue;
+			}
+			else if (val.at(0) == 'C') {
+				int distanceToKeyRow = i - opRow;
+				int distanceToKeyColumn = j - opColumn;
+				int dist = abs(distanceToKeyRow) + abs(distanceToKeyColumn);
+				top = int(val.at(1) - '0');
+
+				if (top == dist) {
+					cout << "I CAN WIN BY MOVING PIECE AT: " << getRow(i) << "," << j << endl;
+				}
+				/*
+				for (int k = 0; k < top; k++) {
+					if ((getRow(i + top) - getRow(i)) + (j - j) > 0) {
+						// up
+					}
+					else {
+						// down
+					}
+					string valid = bv.validateDiceRoll(val, getRow(i), j, (getRow(i + top) - k), (j + k));
+					cout << valid << ": " << i << j << endl;
+					if (valid == "SUCCESS") {
+						Die d(val.at(1) - '0', val.at(2) - '0');
+						d.rollDie(val.at(1) - '0', 0, 'd', 'l');
+						int topDie = d.getTop();
+						int right = d.getRight();
+						string newVal = val.at(0) + to_string(topDie) + to_string(right);
+						cout << "NEW VAL: " << newVal << endl;
+					}
+				}*/
+			}
+			else if (val.at(0) == 'H') {
+				int distanceToMyKeyRow = i - myRow;
+				int distanceToMyKeyColumn = j - myColumn;
+				int myDist = abs(distanceToMyKeyRow) + abs(distanceToMyKeyColumn);
+				top = int(val.at(1) - '0');
+				if (top == myDist) {
+					cout << "YOU CAN WIN BY MOVING PIECE AT: " << getRow(i) << "," << j << endl;
+				}
+			}
+		}
+	}
+	return 0;
+}
+
+string Computer::getMoves(int row, int column, string value) {
+	cout << "COMPUTER HAS A DIE AT " << row << ", " << column << endl;
+	cout << "POSSIBLE MOVES: " << endl;
+
+	// Function that ensures the user is moving to a legitimate space on the board
+
+	// Function to get the new value for the die once it can move
+	string getNewDieVal(string sourceDie, int sourceRow, int sourceColumn, int destRow, int destColumn);
+
+
+	// 5 = 5 + 0
+	// 5 = 0 + 5
+	// 5 = 4 + 1
+	// 5  = 1 + 4
+	// 5 =  3 + 2
+	// 5 = 2 + 3
+	
+	return "HI";
+}
+
+
+Computer::~Computer()
+{
+}
