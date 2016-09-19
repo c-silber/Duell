@@ -85,38 +85,10 @@ string BoardView::validateDiceRoll(string sourceDie, int sourceRow, int sourceCo
 	}
 
 	int dist = distRow + distColumn;
+	char direction;
 
 	if (dist != sourceNum) {
 		return "INCORRECT NUMBER OF SPACES MOVED. TRY AGAIN.";
-	}
-	else {
-		if (sourceColumn != destColumn && sourceRow != destRow) {
-			char direction;
-			cout << "WHICH DIRECTION DO YOU WANT TO MOVE FIRST (F/L): ";
-			cin >> direction;
-		}
-		// check if there are dice on the path
-		cout << "DEST ROW: " << destRow << endl;
-		cout << "DEST COLUMN: " << destColumn << endl;
-		cout << "SOURCE ROW: " << sourceRow << endl;
-		cout << "SOURCE COLUMN: " << sourceColumn << endl;
-
-		string pathVal;
-		while ((sourceRow - 1) > destRow) {
-			pathVal = getValue((sourceRow - 1), sourceColumn);
-			if (pathVal != "0" && pathVal.at(1) != sourceDie.at(1)) {
-				return "CANNOT MOVE DIE OVER OTHERS"; 
-			}
-			sourceRow --;
-		}
-		while (sourceColumn > destColumn) {
-			pathVal = getValue(destRow, destColumn);
-			cout << "VALUE AT " << destRow << "," << destColumn << " is " << pathVal << endl;
-			if (pathVal != "0" && pathVal.at(1) != sourceDie.at(1)) {
-				return "CANNOT MOVE DIE OVER OTHERS";
-			}
-			destRow --;
-		}
 	}
 
 	return "SUCCESS";

@@ -30,25 +30,6 @@ int Computer::playerStrategy(BoardView &bv) {
 				if (top == dist) {
 					cout << "I CAN WIN BY MOVING PIECE AT: " << getRow(i) << "," << j << endl;
 				}
-				/*
-				for (int k = 0; k < top; k++) {
-					if ((getRow(i + top) - getRow(i)) + (j - j) > 0) {
-						// up
-					}
-					else {
-						// down
-					}
-					string valid = bv.validateDiceRoll(val, getRow(i), j, (getRow(i + top) - k), (j + k));
-					cout << valid << ": " << i << j << endl;
-					if (valid == "SUCCESS") {
-						Die d(val.at(1) - '0', val.at(2) - '0');
-						d.rollDie(val.at(1) - '0', 0, 'd', 'l');
-						int topDie = d.getTop();
-						int right = d.getRight();
-						string newVal = val.at(0) + to_string(topDie) + to_string(right);
-						cout << "NEW VAL: " << newVal << endl;
-					}
-				}*/
 			}
 			else if (val.at(0) == 'H') {
 				int distanceToMyKeyRow = i - myRow;

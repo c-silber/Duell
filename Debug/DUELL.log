@@ -1,5 +1,4 @@
-﻿  Human.cpp
-  BoardView.cpp
-  Generating Code...
-  DUELL.vcxproj -> C:\Users\Goldi\Documents\Fall 2016\OPL2\DUELL\Debug\DUELL.exe
-  DUELL.vcxproj -> C:\Users\Goldi\Documents\Fall 2016\OPL2\DUELL\Debug\DUELL.pdb (Full PDB)
+﻿  Computer.cpp
+c:\users\goldi\documents\fall 2016\opl\duell\computer.cpp(89): warning C4930: 'std::string getNewDieVal(std::string,int,int,int,int)': prototyped function not called (was a variable definition intended?)
+  DUELL.vcxproj -> C:\Users\Goldi\Documents\Fall 2016\OPL\DUELL\Debug\DUELL.exe
+  DUELL.vcxproj -> C:\Users\Goldi\Documents\Fall 2016\OPL\DUELL\Debug\DUELL.pdb (Full PDB)

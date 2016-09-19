@@ -11,9 +11,9 @@ Die::Die(int topNum, int rightNum)
 }
 
 
-// movement - is the die going up or down?
+// movement - is the die going up or down? true = up, false = down
 // path should the die be moved laterally before frontally?
-void Die::rollDie(int frontal, int lateral, char movement, char path) {
+void Die::rollDie(int frontal, int lateral, bool movement, char path) {
 	frontal = abs(frontal);
 	if (top == 1 && right == 1) { return; }
 
@@ -29,7 +29,7 @@ void Die::rollDie(int frontal, int lateral, char movement, char path) {
 		direction = 'l';
 	}
 
-	if (path == 'l') {
+	if (path == 'l' || path == 'L') {
 		lateralMoves(lateral, direction);
 	}
 		int oneRight[4] = { 5, 4, 2, 3 };
@@ -58,7 +58,7 @@ void Die::rollDie(int frontal, int lateral, char movement, char path) {
 			top = getValue(sixRight, frontal, movement);
 		}
 	
-	if (path != 'l'){
+	if (path != 'l' && path != 'L'){
 		lateralMoves(lateral, direction);
 	}
 	
@@ -86,9 +86,9 @@ void Die::lateralMoves(int lateral, char direction) {
 }
 
 
-int Die::getValue(int values[], int frontal, char movement) {
+int Die::getValue(int values[], int frontal, bool movement) {
 	
-	if (movement == 'd') {
+	if (movement == false) {
 		int temp[4];
 		temp[0] = values[3];
 		temp[1] = values[2];
