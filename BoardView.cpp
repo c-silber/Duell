@@ -94,6 +94,117 @@ string BoardView::validateDiceRoll(string sourceDie, int sourceRow, int sourceCo
 	return "SUCCESS";
 }
 
+bool BoardView::frontalMove(bool up, bool right, int sourceRow, int sourceColumn, int destRow, int destColumn) {
+	string val;
+	// if we are moving up
+	if (up == true) {
+		while (sourceRow > destRow) {
+			val = getValue((sourceRow + 1), sourceColumn);
+			if (val != "0") {
+				return false;
+			}
+			sourceRow++;
+		}
+	}
+	// if not, we are moving down
+	else {
+		while (sourceRow < destColumn) {
+			val = getValue((sourceRow - 1), sourceColumn);
+			if (val != "0") {
+				return false;
+			}
+			sourceRow--;
+		}
+	}
+	// if we are moving right
+	if (right == true) {
+		while (sourceColumn < destColumn) {
+			val = getValue(destRow, sourceColumn);
+			if (val != "0") {
+				return false;
+			}
+			sourceColumn++;
+		}
+	}
+	// if not, we are moving left
+	else {
+		while (sourceColumn > destColumn) {
+			val = getValue(destRow, sourceColumn);
+			if (val != "0") {
+				return false;
+			}
+			sourceColumn--;
+		}
+	}
+	return true;
+}
+
+bool BoardView::lateralMove(bool up, bool right, int sourceRow, int sourceColumn, int destRow, int destColumn) {
+	string val;
+	if (right == true) {
+		while (sourceColumn < destColumn) {
+			val = getValue(sourceRow, (sourceColumn + 1));
+			if (val != "0") {
+				return false;
+			}
+			sourceColumn++;
+		}
+	}
+	// if not, we are moving left
+	else {
+		while (sourceColumn > destColumn) {
+			val = getValue(sourceRow, (sourceColumn - 1));
+			if (val != "0") {
+				return false;
+			}
+			sourceColumn--;
+		}
+	}
+	if (up == true) {
+		while ((sourceRow + 1) > (destRow)) {
+			val = getValue(sourceRow, sourceColumn);
+			if (val != "0") {
+				return false;
+			}
+			sourceRow++;
+		}
+	}
+	// if not, we are moving down
+	else {
+		while (sourceRow < destColumn) {
+			val = getValue((sourceRow - 1), sourceColumn);
+			if (val != "0") {
+				return false;
+			}
+			sourceRow--;
+		}
+	}
+	return true;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 BoardView::~BoardView()
 {
 }

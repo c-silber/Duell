@@ -54,8 +54,8 @@ int Human::playerStrategy(BoardView &bv) {
 		if (validRolls == "SUCCESS") {
 			if (cColumn != cColumn2 && cRow != cRow2) {
 				// check if there are any possible moves for the given destination
-				if (frontalMove(bv, up, right, cRow, cColumn, cRow2, cColumn2) == false &&
-					lateralMove(bv, up, right, cRow, cColumn, cRow2, cColumn2) == false) {
+				if (bv.frontalMove(up, right, getRow(cRow), cColumn, getRow(cRow2), cColumn2) == false &&
+					bv.lateralMove(up, right, getRow(cRow), cColumn, getRow(cRow2), cColumn2) == false) {
 					cout << "THERE ARE NO POSSIBLE MOVES FOR THIS DESTINATION. PLEASE TRY AGAIN." << endl;
 					validRolls = "TRYAGAIN";
 				}
@@ -91,13 +91,13 @@ int Human::playerStrategy(BoardView &bv) {
 
 			// check if there are dice on the path
 			if (direction == 'f' || direction == 'F') {
-				isValid = frontalMove(bv, up, right, cRow, cColumn, cRow2, cColumn2);
+				isValid = bv.frontalMove(up, right, getRow(cRow), cColumn, getRow(cRow2), cColumn2);
 				if (isValid == false) {
 					cout << "CANNOT MOVE OVER ANOTHER DIE" << endl;
 				}
 			}
 			else if (direction == 'l' || direction == 'L') {
-				isValid = lateralMove(bv, up, right, cRow, cColumn, cRow2, cColumn2);
+				isValid = bv.lateralMove(up, right, getRow(cRow), cColumn, getRow(cRow2), cColumn2);
 				if (isValid == false) {
 					cout << "CANNOT MOVE OVER ANOTHER DIE" << endl;
 				}

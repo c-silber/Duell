@@ -1,4 +1,16 @@
-﻿  Computer.cpp
-c:\users\goldi\documents\fall 2016\opl\duell\computer.cpp(89): warning C4930: 'std::string getNewDieVal(std::string,int,int,int,int)': prototyped function not called (was a variable definition intended?)
+﻿  Player.cpp
+  Human.cpp
+  Computer.cpp
+c:\users\goldi\documents\fall 2016\opl\duell\computer.cpp(89): warning C4800: 'int': forcing value to bool 'true' or 'false' (performance warning)
+c:\users\goldi\documents\fall 2016\opl\duell\computer.cpp(91): warning C4800: 'int': forcing value to bool 'true' or 'false' (performance warning)
+c:\users\goldi\documents\fall 2016\opl\duell\computer.cpp(103): warning C4800: 'int': forcing value to bool 'true' or 'false' (performance warning)
+c:\users\goldi\documents\fall 2016\opl\duell\computer.cpp(105): warning C4800: 'int': forcing value to bool 'true' or 'false' (performance warning)
+c:\users\goldi\documents\fall 2016\opl\duell\computer.cpp(141): warning C4930: 'std::string getNewDieVal(std::string,int,int,int,int)': prototyped function not called (was a variable definition intended?)
+  BoardView.cpp
+c:\users\goldi\documents\fall 2016\opl\duell\boardview.cpp(88): warning C4101: 'direction': unreferenced local variable
+  Generating Code...
+c:\users\goldi\documents\fall 2016\opl\duell\player.cpp(32): warning C4715: 'Player::getRow': not all control paths return a value
+  Skipping... (no relevant changes detected)
+  Game.cpp
   DUELL.vcxproj -> C:\Users\Goldi\Documents\Fall 2016\OPL\DUELL\Debug\DUELL.exe
   DUELL.vcxproj -> C:\Users\Goldi\Documents\Fall 2016\OPL\DUELL\Debug\DUELL.pdb (Full PDB)

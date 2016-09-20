@@ -56,7 +56,19 @@ void Game::Run() {
 		Computer c;
 		Player *human = &h;
 		Player *computer = &c;
-		computer->playerStrategy(bv);
+		int cVal = computer->playerStrategy(bv);
+		if (cVal == 1) {
+			cout << "COMPUTER WINS!" << endl;
+			cout << "WOULD YOU LIKE TO START A NEW GAME? (y/n)" << endl;
+			cin >> newGame;
+			if (newGame == 'y' || newGame == 'Y') {
+				playing = true;
+			}
+			else {
+				playing = false;
+				break;
+			}
+		}
 		int val = human->playerStrategy(bv);
 		bv.printBoard();
 		if (val == 1) {

@@ -25,6 +25,10 @@ public:
 	// Function that ensures the user is moving to a legitimate space on the board
 	string validateDiceRoll(string sourceDie, int sourceRow, int sourceColumn, int destRow, int destColumn);
 
+	bool frontalMove(bool up, bool right, int sourceRow, int sourceColumn, int destRow, int destColumn);
+
+	bool lateralMove(bool up, bool right, int sourceRow, int sourceColumn, int destRow, int destColumn);
+
 	const int MIN_ROW = 1;
 	const int MIN_COLUMN = 1;
 	const int MAX_ROW = 8;
