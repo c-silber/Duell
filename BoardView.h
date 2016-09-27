@@ -1,6 +1,8 @@
 #pragma once
 #include <string>
+#include <fstream>
 #include "Board.h"
+#include "Tournament.h"
 using namespace std;
 
 class BoardView
@@ -20,14 +22,23 @@ public:
 	string validateSource(int row, int column);
 
 	// Get the location of the opponents key piece
-	void getKey(string opponent, int &row, int &column);
+	void getKey();
+	int getHumanKeyRow();
+	int getHumanKeyColumn();
+	int getComputerKeyRow();
+	int getComputerKeyColumn();
 
 	// Function that ensures the user is moving to a legitimate space on the board
 	string validateDiceRoll(string sourceDie, int sourceRow, int sourceColumn, int destRow, int destColumn);
 
-	bool frontalMove(bool up, bool right, int sourceRow, int sourceColumn, int destRow, int destColumn);
-
-	bool lateralMove(bool up, bool right, int sourceRow, int sourceColumn, int destRow, int destColumn);
+	bool frontalMove(int sourceRow, int sourceColumn, int destRow, int destColumn);
+	bool lateralMove(int sourceRow, int sourceColumn, int destRow, int destColumn);
+	void setHumanKeyRow(int i);
+	void setHumanKeyColumn(int j);
+	void setComputerKeyRow(int i);
+	void setComputerKeyColumn(int j);
+	void initiateSerialization(int humanWins, int computerWins, char nextPlayer);
+	bool resumeSerialization(string textFile, Tournament &t);
 
 	const int MIN_ROW = 1;
 	const int MIN_COLUMN = 1;
@@ -37,5 +48,6 @@ public:
 	~BoardView();
 private:
 	string boardArray[9][10];
+	int humanKeyRow, humanKeyColumn, computerKeyRow, computerKeyColumn;
 };
 

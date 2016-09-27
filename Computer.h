@@ -6,8 +6,7 @@ class Computer:
 {
 public:
 	Computer();
-	int playerStrategy(BoardView &bv);
-	string getMoves(int row, int column, string value);
+	void moveDie(BoardView &bv);
 	~Computer();
 };
 

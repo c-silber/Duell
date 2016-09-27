@@ -7,12 +7,19 @@ Human::Human()
 }
 
 int Human::playerStrategy(BoardView &bv) {
-	
+	char suggestion;
+	cout << "WOULD YOU LIKE A SUGGESTION? (y/n) ";
+	cin >> suggestion;
+	if (suggestion == 'Y' || suggestion == 'y') {
+		computerStrategy(bv, 'H');
+		cout << computerMessage << endl;
+	}
+
 	int cRow, cColumn;
 	string validSrc;
 	bool up = false, right = false;
+	
 	do {
-
 		cout << "H: CHOOSE A DIE TO MOVE (ROW AND COLUMN) - ";
 		cin >> cRow >> cColumn;
 		while (cin.fail())
@@ -52,59 +59,27 @@ int Human::playerStrategy(BoardView &bv) {
 			cout << validRolls << endl;
 		}
 		if (validRolls == "SUCCESS") {
-			if (cColumn != cColumn2 && cRow != cRow2) {
-				// check if there are any possible moves for the given destination
-				if (bv.frontalMove(up, right, getRow(cRow), cColumn, getRow(cRow2), cColumn2) == false &&
-					bv.lateralMove(up, right, getRow(cRow), cColumn, getRow(cRow2), cColumn2) == false) {
-					cout << "THERE ARE NO POSSIBLE MOVES FOR THIS DESTINATION. PLEASE TRY AGAIN." << endl;
-					validRolls = "TRYAGAIN";
-				}
+			bool validFrontal = bv.frontalMove(getRow(cRow), cColumn, getRow(cRow2), cColumn2);
+			bool validLateral = bv.lateralMove(getRow(cRow), cColumn, getRow(cRow2), cColumn2);
+
+			if (!validFrontal && !validLateral) {
+				cout << "THERE ARE NO POSSIBLE MOVES FOR THIS DESTINATION. PLEASE TRY AGAIN." << endl;
+				validRolls = "NO MOVES";
 			}
-			else {
-				// if the piece is moving only laterally or frontally, make sure it does not roll over any other dice
-				if (cColumn == cColumn2) {
-					bool isValid = frontOnly(bv, up, cColumn, cColumn2, cRow, cRow2);
-					if (isValid == false) {
-						cout << "CANNOT MOVE OVER ANOTHER DIE" << endl;
-						validRolls = "TRYAGAIN";
-					}
-				}
-				if (cRow == cRow2) {
-					bool isValid = lateralOnly(bv, right, cColumn, cColumn2, cRow, cRow2);
-					if (isValid == false) {
-						cout << "CANNOT MOVE OVER ANOTHER DIE" << endl;
-						validRolls = "TRYAGAIN";
-					}
-				}
+			else if (!validFrontal && validLateral) {
+				direction = 'l';
+			}
+			else if (validFrontal && !validLateral) {
+				direction = 'f';
+			}
+			else if (validFrontal && validLateral) {
+				do {
+					cout << "WHICH DIRECTION DO YOU WANT TO MOVE FIRST (F/L): ";
+					cin >> direction;
+				} while (direction != 'l' && direction != 'L' && direction != 'f' && direction != 'F');
 			}
 		}
 	} while (validRolls != "SUCCESS");
-	
-
-	if (cColumn != cColumn2 && cRow != cRow2) {
-		bool isValid = true;
-		do {
-			do {
-				cout << "WHICH DIRECTION DO YOU WANT TO MOVE FIRST (F/L): ";
-				cin >> direction;
-			} while (direction != 'l' && direction != 'L' && direction != 'f' && direction != 'F');
-
-			// check if there are dice on the path
-			if (direction == 'f' || direction == 'F') {
-				isValid = bv.frontalMove(up, right, getRow(cRow), cColumn, getRow(cRow2), cColumn2);
-				if (isValid == false) {
-					cout << "CANNOT MOVE OVER ANOTHER DIE" << endl;
-				}
-			}
-			else if (direction == 'l' || direction == 'L') {
-				isValid = bv.lateralMove(up, right, getRow(cRow), cColumn, getRow(cRow2), cColumn2);
-				if (isValid == false) {
-					cout << "CANNOT MOVE OVER ANOTHER DIE" << endl;
-				}
-			}
-		} while (isValid == false);
-	}
-
 
 	string destValue = bv.getValue(getRow(cRow2), cColumn2);
 
@@ -129,6 +104,9 @@ int Human::playerStrategy(BoardView &bv) {
 		return 1;
 	}
 
+	if (cRow2 == 8 && cColumn2 == 5) {
+		return 1;
+	}
 	return 0;
 }
 
